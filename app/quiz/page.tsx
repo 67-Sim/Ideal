@@ -3,11 +3,13 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { quizzes, Quiz } from "@/app/data/quizzes";
+import { supabase } from "@/lib/supabase";
 
 type QuizRanking = {
-  name: string;
+  id?: string;
+  nickname: string;
   score: number;
-  createdAt: string;
+  created_at?: string;
 };
 
 export default function QuizPage() {
@@ -22,16 +24,31 @@ export default function QuizPage() {
   const [showNameModal, setShowNameModal] = useState(false);
   const [nickname, setNickname] = useState("");
   const [ranking, setRanking] = useState<QuizRanking[]>([]);
+  const [loadingRanking, setLoadingRanking] = useState(false);
+  const [savingRanking, setSavingRanking] = useState(false);
 
   useEffect(() => {
     loadRanking();
   }, []);
 
-  const loadRanking = () => {
-    const saved = localStorage.getItem("quiz-ranking");
-    const parsed: QuizRanking[] = saved ? JSON.parse(saved) : [];
-    const sorted = parsed.sort((a, b) => b.score - a.score);
-    setRanking(sorted);
+  const loadRanking = async () => {
+    setLoadingRanking(true);
+
+    const { data, error } = await supabase
+      .from("quiz_rankings")
+      .select("id, nickname, score, created_at")
+      .order("score", { ascending: false })
+      .order("created_at", { ascending: true })
+      .limit(50);
+
+    if (error) {
+      console.log(error);
+      setLoadingRanking(false);
+      return;
+    }
+
+    setRanking(data || []);
+    setLoadingRanking(false);
   };
 
   const pickRandomQuiz = (usedIds: number[]) => {
@@ -52,6 +69,8 @@ export default function QuizPage() {
     setScore(0);
     setUsedQuizIds([]);
     setMessage("");
+    setNickname("");
+    setShowNameModal(false);
     pickRandomQuiz([]);
   };
 
@@ -84,22 +103,29 @@ export default function QuizPage() {
     setShowNameModal(true);
   };
 
-  const saveRanking = (name: string) => {
-    const saved = localStorage.getItem("quiz-ranking");
-    const parsed: QuizRanking[] = saved ? JSON.parse(saved) : [];
+  const saveRanking = async (name: string) => {
+    if (savingRanking) return;
 
-    const newRecord: QuizRanking = {
-      name,
+    setSavingRanking(true);
+
+    const displayName = name.trim() || "匿名";
+
+    const { error } = await supabase.from("quiz_rankings").insert({
+      nickname: displayName,
       score,
-      createdAt: new Date().toISOString(),
-    };
+    });
 
-    const nextRanking = [...parsed, newRecord].sort((a, b) => b.score - a.score);
+    setSavingRanking(false);
 
-    localStorage.setItem("quiz-ranking", JSON.stringify(nextRanking));
-    setRanking(nextRanking);
+    if (error) {
+      console.log(error);
+      alert("ランキング登録に失敗しました。");
+      return;
+    }
+
     setShowNameModal(false);
     setFinished(true);
+    await loadRanking();
   };
 
   return (
@@ -172,26 +198,35 @@ export default function QuizPage() {
 
             <p style={finalScoreStyle}>あなたのスコア：{score}点</p>
 
-            <div style={rankingListStyle}>
-              {ranking.length === 0 && (
-                <p style={emptyTextStyle}>まだランキングがありません。</p>
-              )}
+            {loadingRanking ? (
+              <p style={emptyTextStyle}>ランキングを読み込み中...</p>
+            ) : (
+              <div style={rankingListStyle}>
+                {ranking.length === 0 && (
+                  <p style={emptyTextStyle}>まだランキングがありません。</p>
+                )}
 
-              {ranking.map((item, index) => (
-                <div key={`${item.name}-${item.createdAt}`} style={rankingItemStyle}>
-                  <div style={rankNumberStyle}>{index + 1}</div>
+                {ranking.map((item, index) => (
+                  <div
+                    key={item.id || `${item.nickname}-${item.created_at}`}
+                    style={rankingItemStyle}
+                  >
+                    <div style={rankNumberStyle}>{index + 1}</div>
 
-                  <div style={rankingNameAreaStyle}>
-                    <p style={rankingNameStyle}>
-                      {item.name}
-                      {index === 0 && <span style={kingBadgeStyle}> クイズ王!</span>}
-                    </p>
+                    <div style={rankingNameAreaStyle}>
+                      <p style={rankingNameStyle}>
+                        {item.nickname}
+                        {index === 0 && (
+                          <span style={kingBadgeStyle}> クイズ王!</span>
+                        )}
+                      </p>
+                    </div>
+
+                    <div style={rankingScoreStyle}>{item.score}点</div>
                   </div>
-
-                  <div style={rankingScoreStyle}>{item.score}点</div>
-                </div>
-              ))}
-            </div>
+                ))}
+              </div>
+            )}
 
             <button onClick={startQuiz} style={mainButtonStyle}>
               もう一度挑戦する
@@ -216,14 +251,20 @@ export default function QuizPage() {
               />
 
               <button
-                onClick={() => saveRanking(nickname.trim() || "匿名")}
-                style={mainButtonStyle}
+                onClick={() => saveRanking(nickname)}
+                disabled={savingRanking}
+                style={{
+                  ...mainButtonStyle,
+                  opacity: savingRanking ? 0.7 : 1,
+                  cursor: savingRanking ? "default" : "pointer",
+                }}
               >
-                この名前で登録する
+                {savingRanking ? "登録中..." : "この名前で登録する"}
               </button>
 
               <button
                 onClick={() => saveRanking("匿名")}
+                disabled={savingRanking}
                 style={anonymousButtonStyle}
               >
                 匿名で登録する

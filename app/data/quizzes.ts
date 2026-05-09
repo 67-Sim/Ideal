@@ -9,25 +9,25 @@ export type Quiz = {
 export const quizzes: Quiz[] = [
   {
     id: 1,
-    question: "パンはパンでも、食べられないパンは？",
+    question: "焼いても食べられないパンは？",
     options: [
       "メロンパン",
+      "クリームパン",
       "フライパン",
       "カレーパン",
-      "クリームパン",
     ],
-    answerIndex: 1,
+    answerIndex: 2,
     point: 1,
   },
 
   {
     id: 2,
-    question: "いつも空にある野菜は？",
+    question: "四角いボールってなーんだ？",
     options: [
-      "トマト",
-      "にんじん",
-      "かぼちゃ",
-      "レタス",
+      "サッカーボール",
+      "野球ボール",
+      "段ボール",
+      "バスケットボール",
     ],
     answerIndex: 2,
     point: 2,
@@ -35,38 +35,38 @@ export const quizzes: Quiz[] = [
 
   {
     id: 3,
-    question: "逆立ちすると軽くなる動物は？",
+    question: "ひっくり返すと軽くなる動物は？",
     options: [
       "パンダ",
       "イルカ",
-      "ラクダ",
-      "カンガルー",
+      "ゾウ",
+      "キリン",
     ],
-    answerIndex: 2,
+    answerIndex: 1,
     point: 3,
   },
 
   {
     id: 4,
-    question: "寝ても寝ても眠い花は？",
+    question: "冷蔵庫の中にいる動物は？",
     options: [
-      "チューリップ",
-      "バラ",
-      "スイセン",
-      "ひまわり",
+      "ゾウ",
+      "ライオン",
+      "ウサギ",
+      "サル",
     ],
-    answerIndex: 2,
+    answerIndex: 0,
     point: 4,
   },
 
   {
     id: 5,
-    question: "いつも文句を言っている鳥は？",
+    question: "学校の中でどんどん歳を取る場所は？",
     options: [
-      "カラス",
-      "フクロウ",
-      "ブンチョウ",
-      "スズメ",
+      "教室",
+      "体育館",
+      "廊下",
+      "図書室",
     ],
     answerIndex: 2,
     point: 5,

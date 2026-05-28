@@ -101,11 +101,7 @@ export default function IdealPage() {
         <div style={numberBadgeStyle}>理念 {ideal.id}</div>
 
         <h1 style={titleStyle}>{ideal.title}</h1>
-
-        <p style={descriptionStyle}>
-          この理念の説明文が入ります。後から一文程度の説明に差し替えます。
-        </p>
-
+        
         <div style={questionBoxStyle}>
           <p style={questionStyle}>この理念に投票しますか？</p>
 

@@ -34,7 +34,7 @@ export default function ArticlePage() {
         </h1>
 
         <p>
-          ここに会長の記事の内容を入れてください。
+          ここに会長の記事の内容
         </p>
       </article>
     </main>

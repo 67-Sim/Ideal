@@ -143,7 +143,7 @@ export default function BookshelfPage() {
               color: "#6d5840",
             }}
           >
-            本を開き、4つの章から
+            4つの章から
             <br />
             心に響く理念を探してください。
           </p>
@@ -328,9 +328,7 @@ export default function BookshelfPage() {
               fontWeight: 700,
             }}
           >
-            4つの章
-            <br />
-            から選ぶ
+
           </div>
 
           {/* 연결선 */}

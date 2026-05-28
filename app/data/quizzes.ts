@@ -4,71 +4,148 @@ export type Quiz = {
   options: string[];
   answerIndex: number;
   point: number;
+  explanation: string;
 };
 
 export const quizzes: Quiz[] = [
   {
     id: 1,
-    question: "焼いても食べられないパンは？",
+    question: "会長が一番好きな理念はどれでしょう？",
     options: [
-      "メロンパン",
-      "クリームパン",
-      "フライパン",
-      "カレーパン",
+      "仕事が好きな人になろう",
+      "利他の心を判断基準にしよう",
+      "高い目標を持とう",
+      "素直な心を持とう",
     ],
-    answerIndex: 2,
+    answerIndex: 1,
     point: 1,
+    explanation:
+      "会長が一番好きな理念は「利他の心を判断基準にしよう」です！ちなみに、会長が一番難しいと感じている理念は「素直な心を持とう」です。",
   },
 
   {
     id: 2,
-    question: "四角いボールってなーんだ？",
+    question: "クイズ内容",
     options: [
-      "サッカーボール",
-      "野球ボール",
-      "段ボール",
-      "バスケットボール",
+      "選択肢1",
+      "選択肢2",
+      "選択肢3",
+      "選択肢4",
     ],
-    answerIndex: 2,
+    answerIndex: 0,
     point: 2,
+    explanation: "説明",
   },
 
   {
     id: 3,
-    question: "ひっくり返すと軽くなる動物は？",
+    question: "クイズ内容",
     options: [
-      "パンダ",
-      "イルカ",
-      "ゾウ",
-      "キリン",
+      "選択肢1",
+      "選択肢2",
+      "選択肢3",
+      "選択肢4",
     ],
-    answerIndex: 1,
+    answerIndex: 0,
     point: 3,
+    explanation: "説明",
   },
 
   {
     id: 4,
-    question: "冷蔵庫の中にいる動物は？",
+    question: "クイズ内容",
     options: [
-      "ゾウ",
-      "ライオン",
-      "ウサギ",
-      "サル",
+      "選択肢1",
+      "選択肢2",
+      "選択肢3",
+      "選択肢4",
     ],
     answerIndex: 0,
     point: 4,
+    explanation: "説明",
   },
 
   {
     id: 5,
-    question: "学校の中でどんどん歳を取る場所は？",
+    question: "クイズ内容",
     options: [
-      "教室",
-      "体育館",
-      "廊下",
-      "図書室",
+      "選択肢1",
+      "選択肢2",
+      "選択肢3",
+      "選択肢4",
     ],
-    answerIndex: 2,
+    answerIndex: 0,
     point: 5,
+    explanation: "説明",
+  },
+
+  {
+    id: 6,
+    question: "クイズ内容",
+    options: [
+      "選択肢1",
+      "選択肢2",
+      "選択肢3",
+      "選択肢4",
+    ],
+    answerIndex: 0,
+    point: 6,
+    explanation: "説明",
+  },
+
+  {
+    id: 7,
+    question: "クイズ内容",
+    options: [
+      "選択肢1",
+      "選択肢2",
+      "選択肢3",
+      "選択肢4",
+    ],
+    answerIndex: 0,
+    point: 7,
+    explanation: "説明",
+  },
+
+  {
+    id: 8,
+    question: "クイズ内容",
+    options: [
+      "選択肢1",
+      "選択肢2",
+      "選択肢3",
+      "選択肢4",
+    ],
+    answerIndex: 0,
+    point: 8,
+    explanation: "説明",
+  },
+
+  {
+    id: 9,
+    question: "クイズ内容",
+    options: [
+      "選択肢1",
+      "選択肢2",
+      "選択肢3",
+      "選択肢4",
+    ],
+    answerIndex: 0,
+    point: 9,
+    explanation: "説明",
+  },
+
+  {
+    id: 10,
+    question: "クイズ内容",
+    options: [
+      "選択肢1",
+      "選択肢2",
+      "選択肢3",
+      "選択肢4",
+    ],
+    answerIndex: 0,
+    point: 10,
+    explanation: "説明",
   },
 ];

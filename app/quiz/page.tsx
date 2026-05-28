@@ -21,6 +21,8 @@ export default function QuizPage() {
   const [usedQuizIds, setUsedQuizIds] = useState<number[]>([]);
   const [score, setScore] = useState(0);
   const [message, setMessage] = useState("");
+  const [showExplanation, setShowExplanation] = useState(false);
+  const [answered, setAnswered] = useState(false);
   const [showNameModal, setShowNameModal] = useState(false);
   const [nickname, setNickname] = useState("");
   const [ranking, setRanking] = useState<QuizRanking[]>([]);
@@ -69,18 +71,21 @@ export default function QuizPage() {
     setScore(0);
     setUsedQuizIds([]);
     setMessage("");
+    setShowExplanation(false);
+    setAnswered(false);
     setNickname("");
     setShowNameModal(false);
     pickRandomQuiz([]);
   };
 
   const answerQuiz = (selectedIndex: number) => {
-    if (!currentQuiz) return;
+    if (!currentQuiz || answered) return;
 
     const isCorrect = selectedIndex === currentQuiz.answerIndex;
     const nextUsedIds = [...usedQuizIds, currentQuiz.id];
 
     setUsedQuizIds(nextUsedIds);
+    setAnswered(true);
 
     if (isCorrect) {
       setScore((prev) => prev + currentQuiz.point);
@@ -90,10 +95,14 @@ export default function QuizPage() {
       setMessage("不正解… -3点");
     }
 
-    setTimeout(() => {
-      pickRandomQuiz(nextUsedIds);
-      setMessage("");
-    }, 700);
+    setShowExplanation(true);
+  };
+
+  const nextQuiz = () => {
+    setMessage("");
+    setShowExplanation(false);
+    setAnswered(false);
+    pickRandomQuiz(usedQuizIds);
   };
 
   const finishQuiz = () => {
@@ -177,7 +186,12 @@ export default function QuizPage() {
                 <button
                   key={index}
                   onClick={() => answerQuiz(index)}
-                  style={optionButtonStyle}
+                  disabled={answered}
+                  style={{
+                    ...optionButtonStyle,
+                    opacity: answered ? 0.7 : 1,
+                    cursor: answered ? "default" : "pointer",
+                  }}
                 >
                   {index + 1}. {option}
                 </button>
@@ -185,6 +199,18 @@ export default function QuizPage() {
             </div>
 
             {message && <p style={messageStyle}>{message}</p>}
+
+            {showExplanation && (
+              <>
+                <div style={explanationBoxStyle}>
+                  {currentQuiz.explanation}
+                </div>
+
+                <button onClick={nextQuiz} style={nextButtonStyle}>
+                  次の問題へ
+                </button>
+              </>
+            )}
 
             <button onClick={finishQuiz} style={finishButtonStyle}>
               やめてクイズ王に挑戦！
@@ -427,6 +453,31 @@ const messageStyle: React.CSSProperties = {
   fontSize: "16px",
   fontWeight: 700,
   color: "#7a4d21",
+};
+
+const explanationBoxStyle: React.CSSProperties = {
+  marginTop: "16px",
+  padding: "16px",
+  borderRadius: "16px",
+  background: "rgba(255, 255, 255, 0.86)",
+  border: "1px solid rgba(120, 82, 38, 0.16)",
+  color: "#5f4932",
+  fontSize: "15px",
+  lineHeight: 1.8,
+};
+
+const nextButtonStyle: React.CSSProperties = {
+  width: "100%",
+  marginTop: "16px",
+  padding: "14px",
+  borderRadius: "999px",
+  border: "none",
+  background: "linear-gradient(135deg, #6d421f, #a97634)",
+  color: "#fffaf0",
+  fontSize: "15px",
+  fontWeight: 700,
+  cursor: "pointer",
+  boxShadow: "0 12px 24px rgba(100, 61, 26, 0.2)",
 };
 
 const finishButtonStyle: React.CSSProperties = {

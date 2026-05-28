@@ -71,7 +71,7 @@ export default function Home() {
           >
             コマニ
             <br />
-            0000年
+            1988年
           </h1>
 
           {/* 제2시기 설명 */}
@@ -83,7 +83,7 @@ export default function Home() {
               color: "#6d5840",
             }}
           >
-            コマニ第2期、
+            コマニ第2創業期
             <br />
             理念が社内へ広がりはじめた時代。
           </p>
@@ -98,10 +98,10 @@ export default function Home() {
               textAlign: "left",
             }}
           >
-            〇〇年から始まったこの取り組みは、
-            〇〇〇〇という背景の中で、
-            一人ひとりが理念を自分の言葉で受け止めるために
-            進められてきました。
+            会長が社長を務めていたこの時期、
+            コマニでは「利他の心」を社員一人ひとりへ届け、
+            理念を自分自身の言葉として受け止めてもらうための歩みが始まりました。
+
           </p>
 
           {/* 선택 유도 핵심 문장 */}
@@ -213,6 +213,14 @@ export default function Home() {
           >
             理念クイズ王に挑戦！
           </button>
+          
+          <button
+          onClick={() => router.push("/article")}
+          style={subButtonStyle}
+          >
+          会長の記事を読む
+          </button>
+          
         </div>
 
         {/* 하단 문구 */}

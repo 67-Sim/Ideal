@@ -47,6 +47,7 @@ export default function Home() {
         setUnlocked(true);
       }, 800);
     }
+    };
 
   if (!unlocked) {
     return (

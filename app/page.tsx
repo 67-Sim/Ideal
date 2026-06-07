@@ -1,9 +1,162 @@
 "use client";
 
+import { useState } from "react";
 import { useRouter } from "next/navigation";
+
+const kanjiGrid = ["信", "他", "挑", "念", "動", "戦", "利", "感", "謝"];
+const answer = ["利", "他"];
 
 export default function Home() {
   const router = useRouter();
+  const [unlocked, setUnlocked] = useState(false);
+  const [selected, setSelected] = useState<string[]>([]);
+  const [message, setMessage] = useState("");
+
+  const handleKanjiClick = (kanji: string) => {
+    const next = [...selected, kanji];
+    setSelected(next);
+
+    if (next.length === 1) {
+      if (next[0] !== answer[0]) {
+        setMessage("もう一度、理念の原点を思い出してください。");
+        setSelected([]);
+      }
+      return;
+    }
+
+    if (next.length === 2) {
+      if (next[0] === answer[0] && next[1] === answer[1]) {
+        setMessage("「利他の心」");
+        setTimeout(() => {
+          setUnlocked(true);
+        }, 800);
+      } else {
+        setMessage("もう一度、理念の原点を思い出してください。");
+        setSelected([]);
+      }
+    }
+  };
+
+  if (!unlocked) {
+    return (
+      <main
+        style={{
+          minHeight: "100vh",
+          background:
+            "radial-gradient(circle at top, #fff8e8 0%, #f4ead8 45%, #e8d7bd 100%)",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          padding: "24px",
+          fontFamily:
+            '"Hiragino Mincho ProN", "Yu Mincho", "Noto Serif JP", serif',
+          color: "#3b2a1a",
+        }}
+      >
+        <section
+          style={{
+            width: "100%",
+            maxWidth: "430px",
+            minHeight: "620px",
+            borderRadius: "32px",
+            background:
+              "linear-gradient(180deg, rgba(255,252,244,0.96), rgba(250,242,226,0.96))",
+            boxShadow: "0 24px 60px rgba(80, 52, 25, 0.22)",
+            border: "1px solid rgba(120, 82, 38, 0.18)",
+            padding: "36px 24px",
+            boxSizing: "border-box",
+            textAlign: "center",
+          }}
+        >
+          <div
+            style={{
+              fontSize: "13px",
+              letterSpacing: "0.18em",
+              color: "#9a7440",
+              marginBottom: "18px",
+            }}
+          >
+            COMANY PHILOSOPHY
+          </div>
+
+          <h1
+            style={{
+              fontSize: "28px",
+              lineHeight: 1.4,
+              margin: 0,
+              fontWeight: 700,
+            }}
+          >
+            理念手帳を開く前に
+          </h1>
+
+          <p
+            style={{
+              marginTop: "22px",
+              fontSize: "15px",
+              lineHeight: 1.8,
+              color: "#6d5840",
+            }}
+          >
+            理念の原点となる言葉を
+            <br />
+            選んでください。
+          </p>
+
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(3, 1fr)",
+              gap: "14px",
+              marginTop: "34px",
+            }}
+          >
+            {kanjiGrid.map((kanji) => {
+              const isSelected = selected.includes(kanji);
+
+              return (
+                <button
+                  key={kanji}
+                  onClick={() => handleKanjiClick(kanji)}
+                  style={{
+                    aspectRatio: "1 / 1",
+                    borderRadius: "18px",
+                    border: isSelected
+                      ? "2px solid #8b5a2b"
+                      : "1px solid rgba(120, 82, 38, 0.25)",
+                    background: isSelected
+                      ? "linear-gradient(135deg, #7a451e, #b17a35)"
+                      : "rgba(255, 250, 240, 0.9)",
+                    color: isSelected ? "#fffaf0" : "#4b321c",
+                    fontSize: "32px",
+                    fontWeight: 700,
+                    cursor: "pointer",
+                    boxShadow: "0 10px 20px rgba(80, 52, 25, 0.12)",
+                    fontFamily:
+                      '"Hiragino Mincho ProN", "Yu Mincho", "Noto Serif JP", serif',
+                  }}
+                >
+                  {kanji}
+                </button>
+              );
+            })}
+          </div>
+
+          <p
+            style={{
+              minHeight: "28px",
+              marginTop: "26px",
+              fontSize: "15px",
+              color: message === "「利他の心」" ? "#6d421f" : "#9a7440",
+              fontWeight: 700,
+            }}
+          >
+            {message}
+          </p>
+        </section>
+      </main>
+    );
+  }
 
   return (
     <main
@@ -36,7 +189,6 @@ export default function Home() {
           overflow: "hidden",
         }}
       >
-        {/* 테두리 장식 */}
         <div
           style={{
             position: "absolute",
@@ -47,7 +199,6 @@ export default function Home() {
           }}
         />
 
-        {/* 타이틀 */}
         <div style={{ textAlign: "center", marginTop: "28px", zIndex: 1 }}>
           <div
             style={{
@@ -74,7 +225,6 @@ export default function Home() {
             1988年
           </h1>
 
-          {/* 제2시기 설명 */}
           <p
             style={{
               marginTop: "18px",
@@ -101,10 +251,8 @@ export default function Home() {
             会長が社長を務めていたこの時期、
             コマニでは「利他の心」を社員一人ひとりへ届け、
             理念を自分自身の言葉として受け止めてもらうための歩みが始まりました。
-
           </p>
 
-          {/* 선택 유도 핵심 문장 */}
           <p
             style={{
               marginTop: "18px",
@@ -120,7 +268,6 @@ export default function Home() {
           </p>
         </div>
 
-        {/* 책 비주얼 */}
         <div
           style={{
             margin: "28px auto 30px",
@@ -134,7 +281,6 @@ export default function Home() {
             border: "1px solid rgba(90, 48, 17, 0.28)",
           }}
         >
-          {/* 책 등 */}
           <div
             style={{
               position: "absolute",
@@ -146,7 +292,6 @@ export default function Home() {
             }}
           />
 
-          {/* 페이지 영역 */}
           <div
             style={{
               position: "absolute",
@@ -158,7 +303,6 @@ export default function Home() {
             }}
           />
 
-          {/* 장식 라인 */}
           <div
             style={{
               position: "absolute",
@@ -169,6 +313,7 @@ export default function Home() {
               background: "rgba(255, 239, 190, 0.6)",
             }}
           />
+
           <div
             style={{
               position: "absolute",
@@ -197,33 +342,33 @@ export default function Home() {
           </div>
         </div>
 
-        {/* 버튼 */}
         <div style={{ display: "flex", flexDirection: "column", gap: "14px" }}>
-          <button onClick={() => router.push("/bookshelf")} style={mainButtonStyle}>
+          <button
+            onClick={() => router.push("/bookshelf")}
+            style={mainButtonStyle}
+          >
             本を開く
           </button>
 
-          <button onClick={() => router.push("/ranking")} style={subButtonStyle}>
+          <button
+            onClick={() => router.push("/ranking")}
+            style={subButtonStyle}
+          >
             人気理念ランキング
           </button>
 
-          <button
-            onClick={() => router.push("/quiz")}
-            style={subButtonStyle}
-          >
+          <button onClick={() => router.push("/quiz")} style={subButtonStyle}>
             理念クイズ王に挑戦！
           </button>
-          
+
           <button
-          onClick={() => router.push("/article")}
-          style={subButtonStyle}
+            onClick={() => router.push("/article")}
+            style={subButtonStyle}
           >
-          会長の記事を読む
+            会長の記事を読む
           </button>
-          
         </div>
 
-        {/* 하단 문구 */}
         <p
           style={{
             marginTop: "26px",

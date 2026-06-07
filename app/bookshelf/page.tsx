@@ -153,8 +153,9 @@ export default function BookshelfPage() {
         <div
           style={{
             margin: "34px auto 18px",
-            width: "300px",
-            height: "230px",
+            width: "min(78vw, 300px)",
+            maxWidth: "300px",
+            aspectRatio: "300 / 230",
             position: "relative",
             perspective: "1000px",
             zIndex: 2,
@@ -164,10 +165,10 @@ export default function BookshelfPage() {
           <div
             style={{
               position: "absolute",
-              left: "38px",
-              right: "38px",
-              bottom: "10px",
-              height: "28px",
+              left: "13%",
+              right: "13%",
+              bottom: "4%",
+              height: "12%",
               borderRadius: "50%",
               background: "rgba(80, 45, 18, 0.2)",
               filter: "blur(10px)",
@@ -180,10 +181,10 @@ export default function BookshelfPage() {
           <div
             style={{
               position: "absolute",
-              left: opened ? "8px" : "88px",
-              top: "28px",
-              width: "140px",
-              height: "185px",
+              left: opened ? "2.5%" : "29%",
+              top: "12%",
+              width: "46%",
+              height: "80%",
               borderRadius: "14px 8px 8px 14px",
               background:
                 "linear-gradient(90deg, #efe0bf 0%, #fff8e8 82%, #e0cda5 100%)",
@@ -192,7 +193,7 @@ export default function BookshelfPage() {
               transformOrigin: "right center",
               transform: opened
                 ? "rotateY(0deg)"
-                : "rotateY(72deg) translateX(18px)",
+                : "rotateY(72deg) translateX(6%)",
               transition:
                 "left 850ms ease, transform 850ms cubic-bezier(.2,.8,.2,1)",
               overflow: "hidden",
@@ -205,10 +206,10 @@ export default function BookshelfPage() {
           <div
             style={{
               position: "absolute",
-              right: opened ? "8px" : "88px",
-              top: "28px",
-              width: "140px",
-              height: "185px",
+              right: opened ? "2.5%" : "29%",
+              top: "12%",
+              width: "46%",
+              height: "80%",
               borderRadius: "8px 14px 14px 8px",
               background:
                 "linear-gradient(90deg, #e0cda5 0%, #fff8e8 18%, #efe0bf 100%)",
@@ -217,7 +218,7 @@ export default function BookshelfPage() {
               transformOrigin: "left center",
               transform: opened
                 ? "rotateY(0deg)"
-                : "rotateY(-72deg) translateX(-18px)",
+                : "rotateY(-72deg) translateX(-6%)",
               transition:
                 "right 850ms ease, transform 850ms cubic-bezier(.2,.8,.2,1)",
               overflow: "hidden",
@@ -231,9 +232,9 @@ export default function BookshelfPage() {
             style={{
               position: "absolute",
               left: "50%",
-              top: "30px",
-              width: "3px",
-              height: "180px",
+              top: "13%",
+              width: "1%",
+              height: "78%",
               transform: "translateX(-50%)",
               borderRadius: "999px",
               background:
@@ -247,10 +248,10 @@ export default function BookshelfPage() {
           <div
             style={{
               position: "absolute",
-              left: "90px",
-              top: "26px",
-              width: "120px",
-              height: "190px",
+              left: "30%",
+              top: "11%",
+              width: "40%",
+              height: "83%",
               borderRadius: "14px 24px 24px 14px",
               background: "linear-gradient(135deg, #7a451e, #b17a35)",
               boxShadow: "0 20px 34px rgba(70, 38, 13, 0.28)",
@@ -266,21 +267,21 @@ export default function BookshelfPage() {
             <div
               style={{
                 position: "absolute",
-                left: "14px",
+                left: "12%",
                 top: 0,
                 bottom: 0,
-                width: "18px",
+                width: "15%",
                 background: "rgba(60, 30, 10, 0.22)",
               }}
             />
             <div
               style={{
                 position: "absolute",
-                bottom: "120px",
-                left: "42px",
-                right: "22px",
+                top: "34%",
+                left: "34%",
+                right: "14%",
                 textAlign: "center",
-                fontSize: "10px",
+                fontSize: "clamp(9px, 2.4vw, 10px)",
                 letterSpacing: "0.14em",
                 color: "#fff1c8",
                 fontWeight: 700,
@@ -327,9 +328,7 @@ export default function BookshelfPage() {
               color: "#6a4a28",
               fontWeight: 700,
             }}
-          >
-
-          </div>
+          ></div>
 
           {/* 연결선 */}
           <div style={lineVertical} />
@@ -381,15 +380,14 @@ function PageLines({ side }: { side: "left" | "right" }) {
           key={i}
           style={{
             position: "absolute",
-            left: side === "left" ? "22px" : "18px",
-            right: side === "left" ? "18px" : "22px",
-            top: `${42 + i * 26}px`,
+            left: side === "left" ? "16%" : "13%",
+            right: side === "left" ? "13%" : "16%",
+            top: `${23 + i * 14}%`,
             height: "1px",
             background: "rgba(120, 82, 38, 0.24)",
           }}
         />
       ))}
-
     </>
   );
 }

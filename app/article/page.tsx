@@ -1,4 +1,10 @@
+"use client";
+
+import { useRouter } from "next/navigation";
+
 export default function ArticlePage() {
+  const router = useRouter();
+
   return (
     <main
       style={{
@@ -23,6 +29,22 @@ export default function ArticlePage() {
           lineHeight: 1.9,
         }}
       >
+        <button
+          onClick={() => router.push("/")}
+          style={{
+            border: "none",
+            background: "transparent",
+            color: "#8a6b45",
+            fontSize: "14px",
+            cursor: "pointer",
+            marginBottom: "18px",
+            fontFamily:
+              '"Hiragino Mincho ProN", "Yu Mincho", "Noto Serif JP", serif',
+          }}
+        >
+          ← 表紙へ戻る
+        </button>
+
         <h1
           style={{
             fontSize: "28px",
@@ -33,9 +55,21 @@ export default function ArticlePage() {
           会長の記事
         </h1>
 
-        <p>
-          ここに会長の記事の内容
-        </p>
+        {/* 사진 넣는 곳 */}
+        <img
+          src="/chairman.jpg"
+          alt="会長の記事写真"
+          style={{
+            width: "100%",
+            maxHeight: "360px",
+            objectFit: "cover",
+            borderRadius: "18px",
+            marginBottom: "24px",
+            boxShadow: "0 12px 28px rgba(80, 52, 25, 0.16)",
+          }}
+        />
+
+        <p>ここに会長の記事の内容</p>
       </article>
     </main>
   );

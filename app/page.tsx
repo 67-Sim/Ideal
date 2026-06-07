@@ -3,8 +3,13 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 
-const kanjiGrid = ["信", "他", "挑", "念", "動", "戦", "利", "感", "謝"];
-const answer = ["利", "他"];
+const hiraganaGrid = [
+  "し", "ゃ", "ち", "ょ",
+  "う", "さ", "ま", "け",
+  "ん", "た", "つ", "か",
+  "も", "と", "に", "ほ",
+];
+const answer = ["け", "ん", "た", "さ", "ん"];
 
 export default function Home() {
   const router = useRouter();
@@ -12,28 +17,23 @@ export default function Home() {
   const [selected, setSelected] = useState<string[]>([]);
   const [message, setMessage] = useState("");
 
-  const handleKanjiClick = (kanji: string) => {
-    const next = [...selected, kanji];
+  const handleHiraganaClick = (hiragana: string) => {
+    const next = [...selected, hiragana];
     setSelected(next);
 
-    if (next.length === 1) {
-      if (next[0] !== answer[0]) {
-        setMessage("もう一度、理念の原点を思い出してください。");
-        setSelected([]);
-      }
+    const currentIndex = next.length - 1;
+
+    if (next[currentIndex] !== answer[currentIndex]) {
+      setMessage("もう一度、呼び方を思い出してください。");
+      setSelected([]);
       return;
     }
 
-    if (next.length === 2) {
-      if (next[0] === answer[0] && next[1] === answer[1]) {
-        setMessage("「利他の心」");
-        setTimeout(() => {
-          setUnlocked(true);
-        }, 800);
-      } else {
-        setMessage("もう一度、理念の原点を思い出してください。");
-        setSelected([]);
-      }
+    if (next.length === answer.length) {
+      setMessage("「けんたさん」");
+      setTimeout(() => {
+        setUnlocked(true);
+      }, 800);
     }
   };
 
@@ -98,26 +98,26 @@ export default function Home() {
               color: "#6d5840",
             }}
           >
-            理念の原点となる言葉を
+            コマニ内での
             <br />
-            選んでください。
+            社長の呼び方は？
           </p>
 
           <div
             style={{
               display: "grid",
-              gridTemplateColumns: "repeat(3, 1fr)",
-              gap: "14px",
+              gridTemplateColumns: "repeat(4, 1fr)",
+              gap: "12px",
               marginTop: "34px",
             }}
           >
-            {kanjiGrid.map((kanji) => {
-              const isSelected = selected.includes(kanji);
+            {hiraganaGrid.map((hiragana) => {
+              const isSelected = selected.includes(hiragana);
 
               return (
                 <button
-                  key={kanji}
-                  onClick={() => handleKanjiClick(kanji)}
+                  key={hiragana}
+                  onClick={() => handleHiraganaClick(hiragana)}
                   style={{
                     aspectRatio: "1 / 1",
                     borderRadius: "18px",
@@ -128,7 +128,7 @@ export default function Home() {
                       ? "linear-gradient(135deg, #7a451e, #b17a35)"
                       : "rgba(255, 250, 240, 0.9)",
                     color: isSelected ? "#fffaf0" : "#4b321c",
-                    fontSize: "32px",
+                    fontSize: "26px",
                     fontWeight: 700,
                     cursor: "pointer",
                     boxShadow: "0 10px 20px rgba(80, 52, 25, 0.12)",
@@ -136,7 +136,7 @@ export default function Home() {
                       '"Hiragino Mincho ProN", "Yu Mincho", "Noto Serif JP", serif',
                   }}
                 >
-                  {kanji}
+                  {hiragana}
                 </button>
               );
             })}
@@ -147,7 +147,7 @@ export default function Home() {
               minHeight: "28px",
               marginTop: "26px",
               fontSize: "15px",
-              color: message === "「利他の心」" ? "#6d421f" : "#9a7440",
+              color: message === "「けんたさん」" ? "#6d421f" : "#9a7440",
               fontWeight: 700,
             }}
           >

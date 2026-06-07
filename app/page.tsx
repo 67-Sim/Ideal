@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
 const hiraganaGrid = [
@@ -14,6 +14,15 @@ const answer = ["け", "ん", "た", "さ", "ん"];
 export default function Home() {
   const router = useRouter();
   const [unlocked, setUnlocked] = useState(false);
+
+  useEffect(() => {
+   const passed = localStorage.getItem("quizPassed");
+
+   if (passed === "true") {
+     setUnlocked(true);
+   }
+  }, []);
+  
   const [selected, setSelected] = useState<string[]>([]);
   const [message, setMessage] = useState("");
 
@@ -31,11 +40,13 @@ export default function Home() {
 
     if (next.length === answer.length) {
       setMessage("「けんたさん」");
+
+      localStorage.setItem("quizPassed", "true");
+
       setTimeout(() => {
         setUnlocked(true);
       }, 800);
     }
-  };
 
   if (!unlocked) {
     return (

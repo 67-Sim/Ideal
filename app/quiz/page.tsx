@@ -166,7 +166,7 @@ export default function QuizPage() {
               不正解の場合は <strong>-3点</strong> です。
             </p>
             <p style={ruleTextStyle}>
-              いつでも「クイズ王に挑戦！」を押して、今の点数でランキングに挑戦できます。
+              いつでも「クイズを終了してランキングを見る」を押して、今の点数でランキングに挑戦できます。
             </p>
 
             <button onClick={startQuiz} style={mainButtonStyle}>
@@ -213,7 +213,7 @@ export default function QuizPage() {
             )}
 
             <button onClick={finishQuiz} style={finishButtonStyle}>
-              やめてクイズ王に挑戦！
+              クイズを終了してランキングを見る
             </button>
           </section>
         )}

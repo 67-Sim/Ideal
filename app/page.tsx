@@ -110,7 +110,7 @@ export default function Home() {
               color: "#6d5840",
             }}
           >
-            コマニ内での
+            コマニー内での
             <br />
             社長の呼び方は？
           </p>
@@ -232,7 +232,7 @@ export default function Home() {
               letterSpacing: "0.04em",
             }}
           >
-            コマニ
+            コマニー
             <br />
             1988年
           </h1>
@@ -245,7 +245,7 @@ export default function Home() {
               color: "#6d5840",
             }}
           >
-            コマニ第2創業期
+            コマニー第2創業期
             <br />
             理念が社内へ広がりはじめた時代。
           </p>
@@ -261,7 +261,7 @@ export default function Home() {
             }}
           >
             会長が社長を務めていたこの時期、
-            コマニでは「利他の心」を社員一人ひとりへ届け、
+            コマニーでは「利他の心」を社員一人ひとりへ届け、
             理念を自分自身の言葉として受け止めてもらうための歩みが始まりました。
           </p>
 

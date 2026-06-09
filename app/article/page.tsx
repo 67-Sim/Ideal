@@ -19,7 +19,7 @@ export default function ArticlePage() {
     >
       <article
         style={{
-          maxWidth: "720px",
+          maxWidth: "900px",
           margin: "0 auto",
           background: "rgba(255, 252, 244, 0.96)",
           borderRadius: "24px",
@@ -48,28 +48,24 @@ export default function ArticlePage() {
         <h1
           style={{
             fontSize: "28px",
-            marginBottom: "20px",
+            marginBottom: "24px",
             textAlign: "center",
           }}
         >
           会長の記事
         </h1>
 
-        {/* 사진 넣는 곳 */}
-        <img
-          src="/chairman.jpg"
-          alt="会長の記事写真"
+        {/* PDF 표시 */}
+        <iframe
+          src="/chairman.pdf"
           style={{
             width: "100%",
-            maxHeight: "360px",
-            objectFit: "cover",
+            height: "900px",
+            border: "none",
             borderRadius: "18px",
-            marginBottom: "24px",
             boxShadow: "0 12px 28px rgba(80, 52, 25, 0.16)",
           }}
         />
-
-        <p>ここに会長の記事の内容</p>
       </article>
     </main>
   );

@@ -52,7 +52,7 @@ export default function ArticlePage() {
             textAlign: "center",
           }}
         >
-          理念インタビュー記事を読む
+          理念インタビュー記事
         </h1>
 
         {/* PDF 표시 */}

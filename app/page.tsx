@@ -377,7 +377,7 @@ export default function Home() {
             onClick={() => router.push("/article")}
             style={subButtonStyle}
           >
-            会長の記事を読む
+            理念インタビュー記事を読む
           </button>
         </div>
 

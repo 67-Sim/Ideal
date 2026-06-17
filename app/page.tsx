@@ -9,32 +9,38 @@ const hiraganaGrid = [
   "ん", "た", "つ", "か",
   "も", "と", "に", "ん",
 ];
+
 const answer = ["け", "ん", "た", "さ", "ん"];
 
 export default function Home() {
   const router = useRouter();
   const [unlocked, setUnlocked] = useState(false);
 
-  useEffect(() => {
-   const passed = localStorage.getItem("quizPassed");
-
-   if (passed === "true") {
-     setUnlocked(true);
-   }
-  }, []);
-  
   const [selected, setSelected] = useState<string[]>([]);
+  const [selectedIndexes, setSelectedIndexes] = useState<number[]>([]);
   const [message, setMessage] = useState("");
 
-  const handleHiraganaClick = (hiragana: string) => {
+  useEffect(() => {
+    const passed = localStorage.getItem("quizPassed");
+
+    if (passed === "true") {
+      setUnlocked(true);
+    }
+  }, []);
+
+  const handleHiraganaClick = (hiragana: string, index: number) => {
     const next = [...selected, hiragana];
+    const nextIndexes = [...selectedIndexes, index];
+
     setSelected(next);
+    setSelectedIndexes(nextIndexes);
 
     const currentIndex = next.length - 1;
 
     if (next[currentIndex] !== answer[currentIndex]) {
       setMessage("もう一度、呼び方を思い出してください。");
       setSelected([]);
+      setSelectedIndexes([]);
       return;
     }
 
@@ -47,7 +53,7 @@ export default function Home() {
         setUnlocked(true);
       }, 800);
     }
-    };
+  };
 
   if (!unlocked) {
     return (
@@ -123,13 +129,13 @@ export default function Home() {
               marginTop: "34px",
             }}
           >
-            {hiraganaGrid.map((hiragana) => {
-              const isSelected = selected.includes(hiragana);
+            {hiraganaGrid.map((hiragana, index) => {
+              const isSelected = selectedIndexes.includes(index);
 
               return (
                 <button
-                  key={hiragana}
-                  onClick={() => handleHiraganaClick(hiragana)}
+                  key={`${hiragana}-${index}`}
+                  onClick={() => handleHiraganaClick(hiragana, index)}
                   style={{
                     aspectRatio: "1 / 1",
                     borderRadius: "18px",
